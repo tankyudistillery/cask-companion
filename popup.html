@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cask Companion</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span class="brand-mark">丹丘</span>
+      <div>
+        <h1>Cask Companion</h1>
+        <p class="sub">by Tankyu Distillery · Higashikawa, Hokkaido</p>
+      </div>
+    </div>
+    <nav>
+      <button id="tab-calc" class="tab active" type="button">Calculator</button>
+      <button id="tab-track" class="tab" type="button">My Cask</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ CALCULATOR ============ -->
+    <section id="panel-calc" class="panel active">
+      <div class="field-row">
+        <label>Cask type
+          <select id="caskType">
+            <option value="55">Octave (~55 L)</option>
+            <option value="125">Quarter cask (~125 L)</option>
+            <option value="200" selected>Barrel (~200 L)</option>
+            <option value="230">Hogshead (~230 L)</option>
+            <option value="480">Puncheon (~480 L)</option>
+            <option value="custom">Custom</option>
+          </select>
+        </label>
+        <label>Fill volume (L)
+          <input id="fillVol" type="number" min="1" max="700" value="200">
+        </label>
+      </div>
+
+      <div class="field-row">
+        <label>Fill strength (% ABV)
+          <input id="fillAbv" type="number" min="40" max="75" step="0.1" value="63.5">
+        </label>
+        <label>Years of maturation
+          <input id="years" type="number" min="1" max="30" value="5">
+        </label>
+      </div>
+
+      <div class="field-row">
+        <label>Climate
+          <select id="climate">
+            <option value="5" selected>Hokkaido — continental, wide seasonal swing (~5%/yr)</option>
+            <option value="2">Scotland — maritime, temperate (~2%/yr)</option>
+            <option value="8">Subtropical (Taiwan / Kentucky summer) (~8%/yr)</option>
+            <option value="custom">Custom rate</option>
+          </select>
+        </label>
+        <label id="customRateWrap" class="hidden">Loss %/yr
+          <input id="customRate" type="number" min="0.5" max="15" step="0.1" value="5">
+        </label>
+      </div>
+
+      <div class="field-row">
+        <label>Cask price (optional, ¥)
+          <input id="price" type="number" min="0" step="1000" placeholder="e.g. 448000">
+        </label>
+        <label>Bottling
+          <select id="bottling">
+            <option value="cask" selected>Cask strength</option>
+            <option value="46">Diluted to 46% ABV</option>
+          </select>
+        </label>
+      </div>
+
+      <button id="calcBtn" class="primary" type="button">Estimate</button>
+
+      <div id="results" class="results hidden">
+        <div class="result-grid">
+          <div class="result"><span id="rRemaining">–</span><small>litres remaining</small></div>
+          <div class="result"><span id="rShare">–</span><small>angel's share lost</small></div>
+          <div class="result"><span id="rAbv">–</span><small>est. final ABV</small></div>
+          <div class="result"><span id="rBottles">–</span><small>700 ml bottles</small></div>
+        </div>
+        <p id="rCost" class="cost hidden"></p>
+        <p class="note">Estimates only. Real evaporation varies with warehouse, wood and weather — that variance is half the charm.</p>
+      </div>
+    </section>
+
+    <!-- ============ MY CASK ============ -->
+    <section id="panel-track" class="panel">
+      <div id="trackSetup">
+        <p class="lead">Own a cask — or dreaming of one? Track its journey from new-make to bottling day.</p>
+        <div class="field-row">
+          <label>Cask name
+            <input id="tName" type="text" maxlength="40" placeholder="e.g. My first hogshead">
+          </label>
+        </div>
+        <div class="field-row">
+          <label>Fill date
+            <input id="tDate" type="date">
+          </label>
+          <label>Maturation target (years)
+            <input id="tYears" type="number" min="1" max="30" value="5">
+          </label>
+        </div>
+        <button id="saveCask" class="primary" type="button">Start tracking</button>
+      </div>
+
+      <div id="trackView" class="hidden">
+        <h2 id="vName"></h2>
+        <div class="progress-wrap">
+          <div class="progress-bar"><div id="vBar" class="progress-fill"></div></div>
+          <p id="vPct" class="pct"></p>
+        </div>
+        <div class="result-grid">
+          <div class="result"><span id="vElapsed">–</span><small>days maturing</small></div>
+          <div class="result"><span id="vLeft">–</span><small>days to target</small></div>
+        </div>
+        <ul id="vMilestones" class="milestones"></ul>
+        <button id="resetCask" class="ghost" type="button">Reset</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://tankyudistillery.jp/en/private-cask?utm_source=cask_companion&utm_medium=extension" target="_blank" rel="noopener">
+      Begin your own cask journey — the Private Cask Programme at Tankyu Distillery →
+    </a>
+    <a class="minor" href="https://tankyudistillery.jp/en/tour?utm_source=cask_companion&utm_medium=extension" target="_blank" rel="noopener">
+      Or visit the distillery in Higashikawa
+    </a>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
